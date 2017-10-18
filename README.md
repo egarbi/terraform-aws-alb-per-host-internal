@@ -34,7 +34,7 @@ variable "ports" {
 }
 
 module "webALB" {
-  source                = "git::https://github.com/egarbi/terraform-aws-alb-per-host"
+  source                = "git::https://github.com/egarbi/terraform-aws-alb-per-host-internal"
   name                = "web-example"
   subnet_ids          = [ "subnet-AZa", "subnet-AZb", "subnet-AZc" ]
   environment         = "testing"
@@ -42,8 +42,6 @@ module "webALB" {
   vpc_id              = "vpc-183763"
   log_bucket          = "alb-logs"
   zone_id             = "ZDOXX02XXUITZ"
-  ssl_arn             = "arn:aws:acm:eu-west-1:12345678901:certificate/abcd54-06sbdh5-js64-hsg36sjsm34"
-  ssl_policy          = "ELBSecurityPolicy-2015-05"
   hosts               = "${values(var.hosts)}"
   ports               = "${values(var.ports)}"
   services            = "${keys(var.hosts)}"
