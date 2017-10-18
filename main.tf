@@ -24,19 +24,17 @@ variable "backend_proto" {
 }
 
 variable "healthcheckpaths" {
-  default = ["/"]
+  description = "List of health_check paths where TG will be use as endpoint"
 }
 
 variable "hosts" {
   type       = "list"
   description = "List of ALB's Content-Based Routing host to match"
-  default    = []
 }
 
 variable "ports" {
   type       = "list"
   description = "List of ports associated with each service"
-  default    = []
 }
 
 variable "zone_id" {

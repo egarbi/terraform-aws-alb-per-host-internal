@@ -10,7 +10,6 @@ Usage
 ```hcl
 
 
-// Please keep the same order on maps here and above
 variable "ports" {
   description = "This ports will be used in the ALB listener definition for each service"
   default = {
@@ -18,6 +17,16 @@ variable "ports" {
     "phineas"    = "8080"
     "microbots"  = "8000"
     "django"     = "8080"
+  }
+}
+// Please keep the same order on maps here and above
+variable "healthcheckspaths" {
+  description = "This ports will be used in the ALB listener definition for each service"
+  default = {
+    "diminutive" = "/status"
+    "phineas"    = "/"
+    "microbots"  = "/health"
+    "django"     = "check-status"
   }
 }
 
@@ -32,5 +41,6 @@ module "webALB" {
   zone_id             = "ZDOXX02XXUITZ"
   hosts               = [ "${keys(var.ports)}" ]
   ports               = [ "${values(var.ports)}" ]
+  healthcheckspaths   = [ "${values(var.healthcheckspaths)}" ]
 }
 ```
