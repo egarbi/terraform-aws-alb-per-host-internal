@@ -77,7 +77,7 @@ resource "aws_alb_target_group" "main" {
     healthy_threshold   = 2
     unhealthy_threshold = 5
     timeout             = 5
-    path                = "${healthcheckpaths[count.index]}"
+    path                = "${var.healthcheckpaths[count.index]}"
     interval            = 30
   }
 }
