@@ -28,6 +28,7 @@ variable "backend_port" {
 }
 
 variable "healthcheckpaths" {
+  type = "list"
   description = "List of health_check paths where TG will be use as endpoint"
 }
 
