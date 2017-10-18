@@ -1,4 +1,4 @@
-AWS ALB per Host Terraform module
+AWS Internal ALB per Host Terraform module
 ========================
 
 Terraform module which create an internal ALB supporting host-based routing.
@@ -30,8 +30,8 @@ variable "healthcheckspaths" {
   }
 }
 
-module "webALB" {
-  source                = "git::https://github.com/egarbi/terraform-aws-alb-per-host"
+module "sharedInternalALB" {
+  source                = "git::https://github.com/egarbi/terraform-aws-alb-per-host-internal"
   name                = "sharedALB-example"
   subnet_ids          = [ "subnet-AZa", "subnet-AZb", "subnet-AZc" ]
   environment         = "testing"
