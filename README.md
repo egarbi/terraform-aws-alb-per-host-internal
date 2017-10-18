@@ -8,18 +8,6 @@ Usage
 -----
 
 ```hcl
-
-
-variable "ports" {
-  description = "This ports will be used in the ALB listener definition for each service"
-  default = {
-    "diminutive" = "80"
-    "phineas"    = "8080"
-    "microbots"  = "8000"
-    "django"     = "8080"
-  }
-}
-// Please keep the same order on maps here and above
 variable "healthcheckspaths" {
   description = "This ports will be used in the ALB listener definition for each service"
   default = {
@@ -39,8 +27,7 @@ module "sharedInternalALB" {
   vpc_id              = "vpc-183763"
   log_bucket          = "alb-logs"
   zone_id             = "ZDOXX02XXUITZ"
-  hosts               = [ "${keys(var.ports)}" ]
-  ports               = [ "${values(var.ports)}" ]
+  hosts               = [ "${keys(var.healthcheckspaths)}" ]
   healthcheckspaths   = [ "${values(var.healthcheckspaths)}" ]
 }
 ```

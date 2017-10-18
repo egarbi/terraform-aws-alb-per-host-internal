@@ -23,6 +23,10 @@ variable "backend_proto" {
   default = "HTTP"
 }
 
+variable "backend_port" {
+  default = "8080"
+}
+
 variable "healthcheckpaths" {
   description = "List of health_check paths where TG will be use as endpoint"
 }
@@ -30,11 +34,6 @@ variable "healthcheckpaths" {
 variable "hosts" {
   type       = "list"
   description = "List of ALB's Content-Based Routing host to match"
-}
-
-variable "ports" {
-  type       = "list"
-  description = "List of ports associated with each service"
 }
 
 variable "zone_id" {
@@ -71,7 +70,7 @@ resource "aws_alb" "main" {
 resource "aws_alb_target_group" "main" {
   count        = "${length(var.hosts)}"
   name         = "${var.hosts[count.index]}-${var.environment}"
-  port         = "${var.ports[count.index]}"
+  port         = "${var.backend_port}"
   protocol     = "${var.backend_proto}"
   vpc_id       = "${var.vpc_id}"
   health_check = {
