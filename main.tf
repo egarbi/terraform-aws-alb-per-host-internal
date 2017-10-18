@@ -19,6 +19,10 @@ variable "security_groups" {
   description = "List of security group to associate with the LB"
 }
 
+variable "lb_port" {
+  default = "8080"
+}
+
 variable "backend_proto" {
   default = "HTTP"
 }
@@ -85,7 +89,7 @@ resource "aws_alb_target_group" "main" {
 
 resource "aws_alb_listener" "main" {
   load_balancer_arn = "${aws_alb.main.id}"
-  port              = "${lb_port}"
+  port              = "${var.lb_port}"
   protocol          = "HTTP"
 
   default_action {
