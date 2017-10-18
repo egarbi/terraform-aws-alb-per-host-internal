@@ -23,14 +23,8 @@ variable "backend_proto" {
   default = "HTTP"
 }
 
-variable "healthcheck" {
-  default = {
-    healthy_threshold   = 2
-    unhealthy_threshold = 5
-    timeout             = 5
-    path                = "/"
-    interval            = 30
-  }
+variable "healthcheckpaths" {
+  default = ["/"]
 }
 
 variable "hosts" {
@@ -82,7 +76,13 @@ resource "aws_alb_target_group" "main" {
   port         = "${var.ports[count.index]}"
   protocol     = "${var.backend_proto}"
   vpc_id       = "${var.vpc_id}"
-  health_check = [ "${var.healthcheck}" ]
+  health_check = {
+    healthy_threshold   = 2
+    unhealthy_threshold = 5
+    timeout             = 5
+    path                = "${healthcheckpaths[count.index]}"
+    interval            = 30
+  }
 }
 
 resource "aws_alb_listener" "main" {
