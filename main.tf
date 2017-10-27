@@ -170,7 +170,12 @@ output "zone_id" {
   value = "${aws_alb.main.zone_id}"
 }
 
-// The target-group id of the ALB
+// The target-group ids of this ALB
 output "target_groups" {
   value = [ "${aws_alb_target_group.main.*.id}" ]
+}
+
+// The target-group arn_suffixs of this ALB
+output "target_groups_suffixes" {
+  value = [ "${aws_alb_target_group.main.*.arn_suffix}" ]
 }
