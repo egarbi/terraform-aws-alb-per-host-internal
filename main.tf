@@ -84,6 +84,7 @@ resource "aws_alb_target_group" "main" {
     timeout             = 5
     path                = "${var.healthcheckpaths[count.index]}"
     interval            = 30
+    matcher             = 200
   }
 }
 
