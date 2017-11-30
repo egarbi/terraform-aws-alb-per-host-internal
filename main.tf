@@ -161,11 +161,6 @@ output "dns" {
   value = "${aws_alb.main.dns_name}"
 }
 
-// FQDN built using the zone domain and name
-output "fqdn" {
-  value = "${aws_route53_record.main.fqdn}"
-}
-
 // The zone id of the ALB
 output "zone_id" {
   value = "${aws_alb.main.zone_id}"
